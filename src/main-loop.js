@@ -1,8 +1,6 @@
 //Elements learn by imitation but optimise for diversity
 
 //Initialise vars
-const totalEcosystem = [0];
-const maxCycles = 40;
 const probOfReproduce = 0.5;
 const probOfImitateAdj = 0.1;
 const probOfMutate = 0.01;
@@ -90,6 +88,7 @@ const checkIfReproduced = (ecosystem, population) =>
 
 const mainLoop = ecosystem => {
   for (let i = 0; i < ecosystem.length; i++) {
+    console.log(i);
     const population = ecosystem.length;
     lifeCycleEvents(ecosystem, i);
     checkIfReproduced(ecosystem, population) ? i++ : 0;
@@ -97,9 +96,12 @@ const mainLoop = ecosystem => {
   return;
 };
 
-for (let i = 0; i < maxCycles; i++) {
-  mainLoop(totalEcosystem);
-  console.log(i);
-}
+//export default mainLoop;
 
-console.log(totalEcosystem);
+export default function main(totalEcosystem, maxCycles) {
+  for (let i = 0; i < maxCycles; i++) {
+    mainLoop(totalEcosystem);
+    console.log(i);
+  }
+  return totalEcosystem;
+}

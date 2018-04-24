@@ -1,19 +1,38 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Plot from 'react-plotly.js';
+import main from './main-loop';
 
-class App extends Component {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.totalEcosystem = [0];
+    this.maxCycles = 40;
+    this.xArray = this.xArray.bind(this);
+    main(this.totalEcosystem, this.maxCycles);
+  }
+
+  xArray() {
+    const xArray = [];
+    for (let i = 0; i < this.totalEcosystem.length; i++) {
+      xArray.push(i);
+    }
+    return xArray;
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Plot
+        data={[
+          {
+            x: this.xArray(),
+            y: this.totalEcosystem,
+            type: 'scatter',
+            mode: 'markers',
+            marker: { color: '#000066' }
+          }
+        ]}
+        layout={{ width: 1024, height: 768, title: 'A Fancy Plot' }}
+      />
     );
   }
 }
