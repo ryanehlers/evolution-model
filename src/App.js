@@ -6,7 +6,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.totalEcosystem = [0];
-    this.maxCycles = 40;
+    this.maxCycles = 200;
     this.xArray = this.xArray.bind(this);
     main(this.totalEcosystem, this.maxCycles);
   }
@@ -28,10 +28,10 @@ class App extends React.Component {
             y: this.totalEcosystem,
             type: 'scatter',
             mode: 'markers',
-            marker: { color: '#000066' }
+            marker: { size: 1, color: '#000066' }
           }
         ]}
-        layout={{ width: 1024, height: 768, title: 'A Fancy Plot' }}
+        layout={{ width: 1024, height: 768, title: 'Evolution Model' }}
       />
     );
   }

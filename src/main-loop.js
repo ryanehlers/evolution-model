@@ -3,8 +3,12 @@
 //Initialise vars
 const probOfReproduce = 0.5;
 const probOfImitateAdj = 0.1;
-const probOfMutate = 0.01;
-const probOfDeath = 0.1;
+const probOfMutate = 0.001;
+const probOfDeath = (ecosystem, value) =>
+  numberOfOccurences(ecosystem, value) / 1000;
+
+const numberOfOccurences = (array, element) =>
+  array.filter(item => item === element).length;
 
 const lifeCycleEvents = (ecosystem, index) => {
   const population = ecosystem.length;
@@ -31,7 +35,9 @@ const maybeMutate = (ecosystem, index) =>
   checkIfEventOccurred(probOfMutate) ? mutate(ecosystem, index) : 0;
 
 const maybeDie = (ecosystem, index) =>
-  checkIfEventOccurred(probOfDeath) ? die(ecosystem, index) : 0;
+  checkIfEventOccurred(probOfDeath(ecosystem, ecosystem[index]))
+    ? die(ecosystem, index)
+    : 0;
 
 const insertElementBefore = (arr, element, index) =>
   arr.splice(index, 0, element);
@@ -88,7 +94,6 @@ const checkIfReproduced = (ecosystem, population) =>
 
 const mainLoop = ecosystem => {
   for (let i = 0; i < ecosystem.length; i++) {
-    console.log(i);
     const population = ecosystem.length;
     lifeCycleEvents(ecosystem, i);
     checkIfReproduced(ecosystem, population) ? i++ : 0;
