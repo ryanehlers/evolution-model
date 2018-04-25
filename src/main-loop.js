@@ -2,13 +2,13 @@
 
 //Initialise vars
 const probOfReproduce = 0.5;
-const probOfImitateAdj = 0.1;
+const probOfImitateAdj = 1;
 const probOfMutate = 0.001;
 const probOfDeath = (ecosystem, value) =>
   numberOfOccurences(ecosystem, value) / 1000;
 
 const numberOfOccurences = (array, element) =>
-  array.filter(item => item === element).length;
+  array.filter(item => Math.round(item) === Math.round(element)).length;
 
 const lifeCycleEvents = (ecosystem, index) => {
   const population = ecosystem.length;
@@ -55,11 +55,8 @@ const mutate = (ecosystem, index) =>
 const randomDirection = () => (Math.random() < 0.5 ? 'before' : 'after');
 
 const imitate = (ecosystem, indexOfChangingEl, indexOfStaticEl) => {
-  if (ecosystem[indexOfStaticEl] > ecosystem[indexOfChangingEl]) {
-    ecosystem[indexOfChangingEl]++;
-  } else if (ecosystem[indexOfStaticEl] > ecosystem[indexOfChangingEl]) {
-    ecosystem[indexOfChangingEl]--;
-  }
+  const diff = ecosystem[indexOfStaticEl] - ecosystem[indexOfChangingEl];
+  ecosystem[indexOfChangingEl] += diff * 0.1;
 };
 
 const imitateAdjacent = (ecosystem, index) => {

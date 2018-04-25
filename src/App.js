@@ -6,7 +6,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.totalEcosystem = [0];
-    this.maxCycles = 200;
+    this.maxCycles = 1000;
     this.xArray = this.xArray.bind(this);
     main(this.totalEcosystem, this.maxCycles);
   }
